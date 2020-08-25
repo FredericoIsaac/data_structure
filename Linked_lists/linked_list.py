@@ -41,7 +41,17 @@ class Linked_list:
             print(current_node.value)
             # Pass the current node to the next A -> B now B -> C
             current_node = current_node.next
-    
+
+    def linked_list_to_list(self):
+        out_list = []
+
+        node = self.head
+        while node:
+            out_list.append(node.value)
+            node = node.next
+        
+        return out_list            
+
     def append(self, value):
         """
         Append a new node to the end of the linked list
@@ -59,16 +69,6 @@ class Linked_list:
         # End of the linked list
         node.next = Node(value)
         return
-    
-    def linked_list_to_list(self):
-        out_list = []
-
-        node = self.head
-        while node:
-            out_list.append(node.value)
-            node = node.next
-        
-        return out_list
 
     def prepend_linked_list(self, value):
         """
@@ -85,6 +85,42 @@ class Linked_list:
         # Change head to the new node, the new head
         self.head = new_node
         return 
+
+    def insert_linked_list(self, value, position):
+        """
+        Insert value at pos position in the list.
+        If pos is larger than teh legnth of the list, append to the end of the list
+        A -> B -> C
+        insert(D, 1)
+        A -> D -> B -> C  
+        """
+        # if linked list empty
+        if self.head is None:
+            self.head = Node(value)
+            return
+        
+        # If at the beggining of the linked list
+        if position == 0:
+            self.prepend_linked_list(value)
+            return
+
+        # Create a controler of the index
+        index = 0
+        node = self.head
+
+        while node.next:
+            prev_node = node
+            node = node.next
+            index += 1
+
+            if index == position:
+                new_node = Node(value)
+                new_node.next = node
+                prev_node.next = new_node
+                return
+        
+        node.next = Node(value)
+        return
 
     def search_linked_list(self, value):
         """
@@ -141,43 +177,42 @@ class Linked_list:
 
         return node.value
 
-    def insert_linked_list(self, value, position):
-        """
-        Insert value at pos position in the list.
-        If pos is larger than teh legnth of the list, append to the end of the list
-        """
-        # if linked list empty
-        if self.head is None:
-            self.head = Node(value)
-            return
-        
-        # If at the beggining of the linked list
-        if position == 0:
-            self.prepend_linked_list(value)
-            return
 
-        # Create a controler of the index
-        index = 0
+
+    def size_linked_list(self):
+        """
+        Return the size of the linked list
+        """
         node = self.head
-
+        count = 0
         while node:
-            prev_node = node
-            node = node.next
-            index += 1
-
-            if index == position:
-                new_node = Node(value)
-                new_node.next = node
-                prev_node.next = new_node
+            count += 1
             node = node.next
         
-        node = Node(value)
-        return
-        ### errorroro resolver esta função
+        return count
 
+    def reversing_linked_list(self):
+        """
+        Reverse the inputted linked list
+        """
+        if self.head is None:
+            raise ValueError("Link List empty, nothing to reverse")
+        elif self.size_linked_list() == 1:
+            return
 
-
+        current_node = self.head
+        last_node = None
         
+        while current_node:
+            after_node = current_node.next
+            current_node.next = last_node
+            last_node = current_node
+            current_node = after_node
+
+        self.head = last_node 
+        return        
+
+
 
 my_linked_list = Linked_list()
 my_linked_list.create_linked_list_iteration([5,6,8])
@@ -193,6 +228,12 @@ print(my_linked_list.search_linked_list(10)) # False
 my_linked_list.remove_node(1)
 print(my_linked_list.linked_list_to_list()) # [0,5,6,8]
 print(my_linked_list.pop_linked_list()) # 0
-my_linked_list.insert_linked_list(1,1)
-print(my_linked_list.pop_linked_list()) # [0,1,5,6,8]
-
+my_linked_list.insert_linked_list(1,10)
+print(my_linked_list.linked_list_to_list()) # [5,6,8,1]
+my_linked_list.insert_linked_list(1,0)
+print(my_linked_list.linked_list_to_list()) # [1,5,6,8,1]
+my_linked_list.insert_linked_list(1,2)
+print(my_linked_list.linked_list_to_list()) # [1,5,1,6,8,1]
+print(my_linked_list.size_linked_list())
+my_linked_list.reversing_linked_list()
+print(my_linked_list.linked_list_to_list())
