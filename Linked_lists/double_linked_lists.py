@@ -45,11 +45,14 @@ class Double_linked_list:
         # if double linked list is empty
         if self.head is None:
             new_node = Node(data)
+            new_node.prev = None
             self.head = new_node
         else:
             new_node = Node(data)
             new_node.next = self.head
+            self.head.prev = new_node
             self.head = new_node
+            new_node.prev = None
     
     def add_after_node(self, key, data):
         """
@@ -144,10 +147,10 @@ class Double_linked_list:
         raise ValueError("Key not fount, or double linked list empty")
 
     def reverse(self):
-        # Create a temporary pointer
-        tmp = None
         # Create a variable that indicates the current node
         trav = self.head
+        # Create a temporary pointer
+        tmp = trav
         # iterate over the linked list
         while trav is not None:
             # Indicates to the temporary pointer the previous pointer of the current node
@@ -163,8 +166,6 @@ class Double_linked_list:
         if tmp is not None:
             # Change head of the linked list to the last element of the linked list
             self.head = tmp.prev
-
-
 
 
 dllist = Double_linked_list()
@@ -186,12 +187,7 @@ dllist.add_before_node(3,5)
 dllist.delete_element(2)
 dllist.print_list()
 # 0-1-2-5-3-
-dllist.print_list()
 dllist.reverse()
 dllist.print_list()
+# 3-5-2-1-0
 
-new_dllist = Double_linked_list()
-new_dllist.append(1)
-# 1-
-new_dllist.delete_element(1)
-# 
