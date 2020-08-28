@@ -210,7 +210,28 @@ class Linked_list:
             current_node = after_node
 
         self.head = last_node 
-        return        
+        return 
+
+    def iscircular(self, input_list):
+        """
+        Return true if the linked list is circular
+        """      
+        # Linked list empty
+        if input_list.head is None:
+            return False 
+
+        slow = input_list.head
+        faster = input_list.head
+
+        while fast and fast.next:
+            # slow pointer moves one node
+            slow = slow.next
+            fast = fast.next.next
+
+            if slow == fast:
+                return True
+
+        return False 
 
 
 
