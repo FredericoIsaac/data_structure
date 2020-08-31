@@ -231,7 +231,9 @@ class Linked_list:
             if slow == fast:
                 return True
 
-        return False 
+        return False
+
+    
 
 
 
