@@ -31,13 +31,44 @@ class Binary_tree:
             self.rightChild = new_node
 
     def getRightChild(self):
-        return self.rightChild.value
+        return self.rightChild
     
     def getLeftChild(self):
-        return self.leftChild.value
+        return self.leftChild
     
     def setRootVal(self, value):
         self.key = value
     
     def getRootVal(self):
         return self.key
+
+
+
+tree = Binary_tree()
+
+def preorder(tree):
+    """
+    Pre-order the current tree
+    """
+    if tree:
+        print(tree.getRootVal())
+        preorder(tree.getLeftChild())
+        preorder(tree.getRightChild())
+
+def postorder(tree):
+    """
+    Post-order the current tree
+    """
+    if tree:
+        postorder(tree.getLeftChild())
+        postorder(tree.getRightChild())
+        print(tree.getRootVal())
+
+def inorder(tree):
+    """
+    In-order the current tree
+    """
+    if tree:
+        inorder(tree.getLeftChild())
+        print(tree.getRootVal())
+        inorder(tree.getRightChild())
