@@ -41,7 +41,41 @@ class BinarySearchTree:
             print("Value is already present in tree")
 
     def find(self, data):
-        pass
+        """
+        Find recursively the data and return boolean
+        """
+        # Check if tree is empty
+        if self.root == None:
+            return None
+        
+        is_found = self._find(data, self.root)
+        if is_found:
+            return True
+        return False
+
+    def _find(self, data, cur_node):
+
+        # Base Case
+        if cur_node.data == data:
+            return True
+
+        if data < cur_node.data and cur_node.left:
+            return self._find(data, cur_node.left)
+        elif data > cur_node.data and cur_node.right:
+            return self._find(data, cur_node.right)
+
+    def inorder_print_tree(self):
+        if self.root:
+            self._inorder_print_tree(self.root)
+
+    def _inorder_print_tree(self, cur_node):
+        if cur_node:
+            self._inorder_print_tree(cur_node.left)
+            print(cur_node.data)
+            self._inorder_print_tree(cur_node.right)
+
+
+
 
 
 
@@ -54,3 +88,7 @@ bst.insert(10)
 bst.insert(1)
 bst.insert(6)
 bst.insert(9)
+
+
+print(bst.find(9))
+# True
