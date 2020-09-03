@@ -20,6 +20,8 @@
 * Not an ideal data structure if sorting is the goal - just use an array
 * Can run the gamut of size
 
+The general name for this process of looking for another slot after a collision is rehashing. It is important to note that the size of the “skip” must be such that all the slots in the table will eventually be visited. Otherwise, part of the table will be unused. To ensure this, it is **often suggested that the table size be a prime number.** This is the reason we have been using 11 in our examples
+
 ### Chaining
 
 Now, the entire time complexity essentialy depends on the linked list traversal. In the worst case, all entries would go to the same bucket index and our linked list at that index would be huge. Therefore, the time complexity in that scenario would be  𝑂(𝑛) . However, hash functions are wisely chosen so that this does not happen.
